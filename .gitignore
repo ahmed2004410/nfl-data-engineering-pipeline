@@ -17,3 +17,7 @@ airflow.db
 
 # IDE
 .vscode/
+
+# Windows system files
+desktop.ini
+Thumbs.db
