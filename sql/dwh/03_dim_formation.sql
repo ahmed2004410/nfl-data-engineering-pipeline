@@ -23,3 +23,8 @@ COALESCE(substring(personnel_d from '(\d+)\s*DB')::INTEGER, 0) AS db_count
 FROM staging.plays
 WHERE offense_formation IS NOT NULL
 ORDER BY offense_formation;
+
+-- صف الـ UNKNOWN: بيمثل أي play مالوش offense_formation
+-- أو combination من personnel_o/personnel_d مش موجودة أصلاً
+INSERT INTO dwh.dim_formation (offense_formation, rb_count, te_count, wr_count, dl_count, lb_count, db_count)
+VALUES ('UNKNOWN', -1, -1, -1, -1, -1, -1);

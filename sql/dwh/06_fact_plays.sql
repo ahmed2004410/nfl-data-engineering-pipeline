@@ -1,3 +1,4 @@
+
 DROP TABLE IF EXISTS dwh.fact_plays;
 CREATE TABLE dwh.fact_plays (
     game_id                   INTEGER NOT NULL,
@@ -20,25 +21,11 @@ CREATE TABLE dwh.fact_plays (
     PRIMARY KEY (game_id, play_id)
 );
 
-
 INSERT INTO dwh.fact_plays (
-   game_id,
-   play_id,
-   game_key, 
-   date_key,
-   offense_team_key,
-   defense_team_key, 
-   formation_key,
-   quarter,
-    down,
-    yards_to_go,
-    play_type,
-    pass_result,
-    absolute_yardline_number,
-    defenders_in_the_box,
-    number_of_pass_rushers, 
-    offense_play_result, 
-    epa)
+   game_id, play_id, game_key, date_key, offense_team_key, defense_team_key,
+   formation_key, quarter, down, yards_to_go, play_type, pass_result,
+   absolute_yardline_number, defenders_in_the_box, number_of_pass_rushers,
+   offense_play_result, epa)
 SELECT
     p.game_id,
     p.play_id,
@@ -46,7 +33,10 @@ SELECT
     d.date_key,
     ot.team_key AS offense_team_key,
     dt.team_key AS defense_team_key,
-    f.formation_key,
+    COALESCE(
+        f.formation_key,
+        (SELECT formation_key FROM dwh.dim_formation WHERE offense_formation = 'UNKNOWN')
+    ) AS formation_key,
     p.quarter,
     p.down,
     p.yards_to_go,
@@ -55,7 +45,7 @@ SELECT
     p.absolute_yardline_number,
     p.defenders_in_the_box,
     p.number_of_pass_rushers,
-    p.offenseplayresult as offense_play_result ,
+    p.offenseplayresult as offense_play_result,
     p.epa
 FROM staging.plays p
 JOIN staging.games sg   ON sg.game_id = p.game_id
@@ -73,5 +63,3 @@ LEFT JOIN dwh.dim_formation f
    AND f.dl_count = COALESCE(substring(p.personnel_d from '(\d+)\s*DL')::INTEGER, 0)
    AND f.lb_count = COALESCE(substring(p.personnel_d from '(\d+)\s*LB')::INTEGER, 0)
    AND f.db_count = COALESCE(substring(p.personnel_d from '(\d+)\s*DB')::INTEGER, 0);
-
-
