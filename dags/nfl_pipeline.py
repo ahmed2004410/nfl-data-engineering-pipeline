@@ -1,5 +1,7 @@
 import sys
 from datetime import datetime, timedelta
+from airflow.models.baseoperator import cross_downstream
+from airflow.models.baseoperator import chain
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -11,11 +13,11 @@ from airflow.providers.common.sql.operators.sql import (
 sys.path.append("/opt/airflow/src")
 
 from load_staging import create_tables, load_csv, TABLES, RAW  # noqa: E402
-from db import get_engine  # noqa: E402
-
+from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 def run_load_staging():
-    engine = get_engine()
+    hook = PostgresHook(postgres_conn_id="nfl_postgres")
+    engine = hook.get_sqlalchemy_engine()
     create_tables(engine)
     for table, filename in TABLES.items():
         load_csv(engine, table, RAW / filename)
@@ -125,4 +127,8 @@ with DAG(
         mart_receiver_speed,
     ]
 
-    load_staging >> dimensions >> facts >> checks >> marts
+load_staging >> dimensions
+
+cross_downstream(dimensions, facts)
+cross_downstream(facts, checks)
+cross_downstream(checks, marts)
