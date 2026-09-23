@@ -1,4 +1,4 @@
-Drop table if exists dwh.dim_players ;
+Drop table if exists dwh.dim_players CASCADE;
 Create table dwh.dim_players (
     player_key INTEGER generated always as identity primary key,
     nfl_id INTEGER  NOT NULL,

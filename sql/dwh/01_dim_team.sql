@@ -1,4 +1,4 @@
-Drop table if exists dwh.dim_team;
+Drop table if exists dwh.dim_team CASCADE;
 Create table dwh.dim_team (
     team_key INTEGER generated always as identity primary key,
     team_abbr VARCHAR(100) NOT NULL

@@ -1,4 +1,4 @@
-Drop table if exists dwh.fact_tracking ;
+Drop table if exists dwh.fact_tracking CASCADE;
 Create table dwh.fact_tracking (
     tracking_key INTEGER generated always as identity primary key,
 	game_id 	 INTEGER NOT null,

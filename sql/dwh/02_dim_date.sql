@@ -1,4 +1,4 @@
-Drop table if exists dwh.dim_date;
+Drop table if exists dwh.dim_date CASCADE;
 Create table dwh.dim_date (
     date_key INTEGER generated always as identity primary key,
     full_date DATE NOT NULL,

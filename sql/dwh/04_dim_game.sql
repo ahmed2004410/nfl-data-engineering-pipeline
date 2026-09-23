@@ -1,4 +1,4 @@
-Drop table if exists dwh.dim_games ;
+Drop table if exists dwh.dim_games CASCADE;
 Create table dwh.dim_games (
     game_key INTEGER generated always as identity primary key,
     game_id INTEGER NOT NULL,

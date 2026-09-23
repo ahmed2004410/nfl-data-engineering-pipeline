@@ -1,5 +1,5 @@
 
-DROP TABLE IF EXISTS dwh.fact_plays;
+DROP TABLE IF EXISTS dwh.fact_plays CASCADE;
 CREATE TABLE dwh.fact_plays (
     game_id                   INTEGER NOT NULL,
     play_id                   INTEGER NOT NULL,

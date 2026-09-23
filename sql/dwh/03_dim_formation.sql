@@ -1,4 +1,4 @@
-Drop table if exists dwh.dim_formation ;
+Drop table if exists dwh.dim_formation CASCADE; 
 Create table dwh.dim_formation (
     formation_key INTEGER generated always as identity primary key,
     offense_formation VARCHAR(100) NOT NULL,
