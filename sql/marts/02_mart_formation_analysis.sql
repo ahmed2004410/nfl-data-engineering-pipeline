@@ -8,7 +8,7 @@ SELECT
     COUNT(*) FILTER (WHERE epa > 0)             AS times_successful,
     round(
         (COUNT(*) FILTER (WHERE epa > 0))::numeric / COUNT(*) * 100
-    , 2) || '%' as success_rate,
+    , 2) as success_rate,
     (SELECT COUNT(*) FROM dwh.fact_plays)       AS total_plays_all,
     round(
         COUNT(*)::numeric / (SELECT COUNT(*) FROM dwh.fact_plays) * 100
