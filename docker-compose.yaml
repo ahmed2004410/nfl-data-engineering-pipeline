@@ -73,6 +73,7 @@ services:
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
       - ./.env:/opt/airflow/.env
+      - ./data:/opt/airflow/data
     command: scheduler
 
 volumes:
