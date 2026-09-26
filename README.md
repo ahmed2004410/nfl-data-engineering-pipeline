@@ -19,3 +19,4 @@ Kagle
 4. افتح Airflow على localhost:8081 وشغّل الـ DAG
 
 ## Dashboard
+<img width="1235" height="692" alt="Screenshot 2026-09-26 153551" src="https://github.com/user-attachments/assets/1fffeba0-ef76-451f-82f4-0c4bdb787ea8" />
