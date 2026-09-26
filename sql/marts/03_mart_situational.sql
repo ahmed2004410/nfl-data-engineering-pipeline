@@ -12,7 +12,7 @@ SELECT
     COUNT(*) AS play_count,
     ROUND(AVG(epa), 2) AS avg_epa,
     ROUND(
-        (COUNT(*) FILTER (WHERE epa > 0))::numeric / COUNT(*) * 100
+        (COUNT(*) FILTER (WHERE epa > 0))::numeric / COUNT(*)
     , 2) AS success_rate_pct
 FROM dwh.fact_plays
 GROUP BY down, distance_category
