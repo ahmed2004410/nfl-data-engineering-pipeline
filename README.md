@@ -10,9 +10,7 @@ CSV → staging → dwh (dimensions + facts) → marts → Power BI
 Orchestrated with Airflow.
 
 ## Data Source
-[اسم المصدر أو الرابط اللي جبت منه الداتا]
-النسخة الكاملة من الملفات (خصوصاً week_data.csv الكبير) مش مرفوعة هنا لحجمها.
-حطها في data/raw/ قبل التشغيل.
+Kagle
 
 ## Setup
 1. `python -m venv venv` + `pip install -r requirements.txt`
@@ -21,4 +19,3 @@ Orchestrated with Airflow.
 4. افتح Airflow على localhost:8081 وشغّل الـ DAG
 
 ## Dashboard
-[لينك أو screenshot من Power BI]
